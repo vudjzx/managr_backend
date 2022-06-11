@@ -15,7 +15,7 @@ const registerUser = async (req: Request, res: Response, next: NextFunction) => 
     user.token = generateId();
     await user.save();
     emailHandler(user.name, user.email, user.token);
-    res.status(201).json({msg: 'User created, please check your email to confirm.'});
+    res.status(201).json({msg: 'User created, you can login now.'});
   } catch (error) {
     res.status(400).send(error);
   }

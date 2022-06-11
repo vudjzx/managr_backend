@@ -25,7 +25,7 @@ const userSchema = new Schema<IUser>(
     },
     confirmed: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   {timestamps: true},
