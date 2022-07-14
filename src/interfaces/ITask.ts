@@ -1,6 +1,6 @@
-import {IProject} from './projects/IProjects';
+import {IProject} from './IProjects';
 import {Document} from 'mongoose';
-import {IUser} from './users/IUser';
+import {IUser} from './IUser';
 
 export interface ITask extends Document {
   name: string;

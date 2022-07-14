@@ -1,3 +1,4 @@
+import {JwtPayload} from 'jsonwebtoken';
 import {Document} from 'mongoose';
 
 export interface IUser extends Document {
@@ -9,8 +10,8 @@ export interface IUser extends Document {
   comparePassword: (password: string) => Promise<boolean>;
 }
 
-export interface IDecodedToken {
+export interface IDecodedToken extends JwtPayload {
   id: string;
-  iat: string;
-  exp: string;
+  iat: number;
+  exp: number;
 }

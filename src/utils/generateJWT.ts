@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import {IUser} from '../interfaces/users/IUser';
 import {ObjectId} from 'mongodb';
 
 const generateJWT = (id: ObjectId) => {

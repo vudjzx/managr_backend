@@ -1,10 +1,10 @@
-import {Request, NextFunction, Response} from 'express';
+import {Request, Response} from 'express';
 import User from '../models/User';
 import {emailHandler, resetPasswordHandler} from '../utils/emailHandler';
 import generateId from '../utils/generateId';
 import generateJWT from '../utils/generateJWT';
 
-const registerUser = async (req: Request, res: Response, next: NextFunction) => {
+const registerUser = async (req: Request, res: Response) => {
   const {email} = req.body;
   const isDuplicated = await User.findOne({email});
 
@@ -21,7 +21,7 @@ const registerUser = async (req: Request, res: Response, next: NextFunction) => 
   }
 };
 
-const authenticateUser = async (req: Request, res: Response, next: NextFunction) => {
+const authenticateUser = async (req: Request, res: Response) => {
   const {email, password} = req.body;
 
   const user = await User.findOne({email});
@@ -40,7 +40,7 @@ const authenticateUser = async (req: Request, res: Response, next: NextFunction)
   }
 };
 
-const confirmUser = async (req: Request, res: Response, next: NextFunction) => {
+const confirmUser = async (req: Request, res: Response) => {
   const {token} = req.params;
   const user = await User.findOne({token});
   if (!user) return res.status(404).json({msg: 'Invalid token'});
@@ -51,7 +51,7 @@ const confirmUser = async (req: Request, res: Response, next: NextFunction) => {
   res.status(200).json({msg: 'User confirmed'});
 };
 
-const resetPassword = async (req: Request, res: Response, next: NextFunction) => {
+const resetPassword = async (req: Request, res: Response) => {
   const {email} = req.body;
   const user = await User.findOne({email});
   if (!user || !user.confirmed)
@@ -66,14 +66,14 @@ const resetPassword = async (req: Request, res: Response, next: NextFunction) =>
   }
 };
 
-const confirmToken = async (req: Request, res: Response, next: NextFunction) => {
+const confirmToken = async (req: Request, res: Response) => {
   const {token} = req.params;
   const user = await User.findOne({token});
   if (!user || !user.confirmed) return res.status(404).json({msg: 'Token not valid'});
   res.status(200).json({msg: 'Token is valid'});
 };
 
-const changePassword = async (req: Request, res: Response, next: NextFunction) => {
+const changePassword = async (req: Request, res: Response) => {
   const {token} = req.params;
   const {password} = req.body;
   const user = await User.findOne({token});
@@ -88,7 +88,7 @@ const changePassword = async (req: Request, res: Response, next: NextFunction) =
   }
 };
 
-const profile = async (req: Request, res: Response, next: NextFunction) => {
+const profile = async (req: Request, res: Response) => {
   const user = req.user;
   res.status(200).json(user);
 };
